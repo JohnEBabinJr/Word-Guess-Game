@@ -6,9 +6,9 @@ var wordBank = ["mercury", "venus", "earth", "mars", "jupiter", "saturn",
 const maxTries = 8;
 
 var guessedletters = [];
-var currentWordIndex;
+var currentWord;
 var guessingWord = [];
-var remainingGuesses = 0;
+var remainingGuesses;
 var gameStarted = false;
 var hasFinished = false;
 var wins = 0;
@@ -18,33 +18,32 @@ function resetGame() {
     remainingGuesses = maxTries;
     gameStarted = false;
 
-    currentWordIndex = wordbank[Math.floor(Math.random() * wordBank.length)];
+    currentWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+    console.log("Reseting Game");
+    console.log(currentWord);
+
 
     guessedletters = [];
     guessingWord = [];
 
-    for (var i = 0; i < currentWordIndex.length; i++) {
-        guessingWord.push("_ ");
+    for (var i = 0; i < currentWord.length; i++) {
+        console.log(currentWord.length);
+        guessingWord.push("_");
     }
-
-    document.getElementById("pressKeyTryAgain").style.cssText = "display: none";
-    document.getElementById("gameover-image").style.cssText = "display: none";
-    document.getElementById("youwin-image").style.cssText = "display: none";
-
     updateDisplay();
 };
 
 function updateDisplay() {
     document.getElementById("totalWins").innerText = wins;
-    document.getElementById("currentWord").innerText = " ";
+    document.getElementById("currentWord").innerText =" ";
     for (var i = 0; i < guessingWord.length; i++) {
-        document.getElementById("currentWord").innerText = guessingWord[i];
+        document.getElementById("currentWord").append(guessingWord[i]);
     }
     document.getElementById("remainingGuesses").innerText = remainingGuesses;
-    document.getElementById("guessedLetters").innerText = guessedLetters;
+    document.getElementById("guessedLetters").innerText = guessedletters;
     if (remainingGuesses <= 0) {
-        document.getElementById("gameover-image").style.cssText = "display: block";
-        document.getElementById("pressKeyTryAgain").style.cssText = "display:block";
+        alert("Game Over");
+        alert("Press Any Key To Try Again");
         hasFinished = true;
     }
 };
@@ -57,7 +56,7 @@ document.onkeyup = function (event) {
     }
     else {
         if (event.keyCode >= 65 && event.keyCode <= 90) {
-            makeGuess(event.key.toLowerCase());
+            makeGuess(event.key);
         }
     };
 
@@ -67,8 +66,8 @@ document.onkeyup = function (event) {
             if (!gameStarted) {
                 gameStarted = true;
             }
-            if (guessedLetters.indexOf(letter) === -1) {
-                guessedLetters.push(letter);
+            if (guessedletters.indexOf(letter) === -1) {
+                guessedletters.push(letter);
                 evaluateGuess(letter);
             }
         }
@@ -81,14 +80,16 @@ document.onkeyup = function (event) {
 
     function evaluateGuess(letter) {
         var positions = [];
-        for (var i = 0; i < wordBank[currentWordIndex].length; i++) {
-            if (wordBank[currentWordIndex][i] === letter) {
+        for (var i = 0; i < currentWord.length; i++) {
+            if (currentWord[i] === letter) {
                 positions.push(i);
             }
         }
+        
         if (positions.length <= 0) {
             remainingGuesses--;
         } else {
+            
             for (var i = 0; i < positions.length; i++) {
                 guessingWord[positions[i]] = letter;
             }
@@ -97,10 +98,14 @@ document.onkeyup = function (event) {
 
     function checkWin() {
         if (guessingWord.indexOf("_") === -1) {
-            document.getElementById("youwin-image").style.cssText = "display: block";
-            document.getElementById("pressKeyTryAgain").style.cssText = "display: block";
+            alert("You Win");
+            alert("Press Any Key To Try Again");
             wins++;
             hasFinished = true;
         }
     };
 }
+
+
+resetGame();
+updateDisplay();
