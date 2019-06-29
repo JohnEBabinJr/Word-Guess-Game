@@ -19,13 +19,7 @@
     margin: 0;
     line-height: 1;
 }
-.wordguess{
-    font-family: 'Mr Dafoe', cursive;
-    font-size: 30px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    color: #4d0099;
-   } 
+
 body {
     background: #404040;
     background-image:url(http://i.stack.imgur.com/TEBeF.gif);
@@ -34,28 +28,4 @@ body {
     height: 100%;
     text-align: center;
     font-size: 24px;
-  }
-  button {
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -khtml-border-radius: 5px;
-    background: #b30059;
-    color: #fff;
-    border: solid 1px #fff;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 1.2em;
-    padding: 18px 10px;
-    width: 180px;
-    margin: 10px;
-    outline: none;
-  }
-  button:hover {
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    background: #fff;
-    border: solid 1px #fff;
-    color: #c1d72e;
   }

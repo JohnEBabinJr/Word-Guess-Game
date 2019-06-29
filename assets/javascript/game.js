@@ -1,41 +1,106 @@
-// Watch the demo.
-// Choose a theme for your game! In the demo, we picked an 80s theme: 80s questions, 80s sound and an 80s aesthetic. You can choose any subject for your theme, though, so be creative!
-// Use key events to listen for the letters that your players will type.
-// Display the following on the page:
-// Press any key to get started!
-// Wins: (# of times user guessed the word correctly).
+var wordBank = ["mercury", "venus", "earth", "mars", "jupiter", "saturn",
+    "uranus", "neptune", "pluto", "sun", "moon", "eclipse", "luna", "galaxy",
+    "meteor", "satellite", "cosmos", "rover", "spaceship", "comets", "asteroid",
+    "core", "crust", "mantle", "wormhole", "atmosphere", "universe", "rocketship", "planet"];
+
+const maxTries = 8;
+
+var guessedletters = [];
+var currentWordIndex;
+var guessingWord = [];
+var remainingGuesses = 0;
+var gameStarted = false;
+var hasFinished = false;
+var wins = 0;
 
 
+function resetGame() {
+    remainingGuesses = maxTries;
+    gameStarted = false;
 
-// If the word is madonna, display it like this when the game starts: _ _ _ _ _ _ _.
-// As the user guesses the correct letters, reveal them: m a d o _  _ a.
+    currentWordIndex = wordbank[Math.floor(Math.random() * wordBank.length)];
+
+    guessedletters = [];
+    guessingWord = [];
+
+    for (var i = 0; i < currentWordIndex.length; i++) {
+        guessingWord.push("_ ");
+    }
+
+    document.getElementById("pressKeyTryAgain").style.cssText = "display: none";
+    document.getElementById("gameover-image").style.cssText = "display: none";
+    document.getElementById("youwin-image").style.cssText = "display: none";
+
+    updateDisplay();
+};
+
+function updateDisplay() {
+    document.getElementById("totalWins").innerText = wins;
+    document.getElementById("currentWord").innerText = " ";
+    for (var i = 0; i < guessingWord.length; i++) {
+        document.getElementById("currentWord").innerText = guessingWord[i];
+    }
+    document.getElementById("remainingGuesses").innerText = remainingGuesses;
+    document.getElementById("guessedLetters").innerText = guessedLetters;
+    if (remainingGuesses <= 0) {
+        document.getElementById("gameover-image").style.cssText = "display: block";
+        document.getElementById("pressKeyTryAgain").style.cssText = "display:block";
+        hasFinished = true;
+    }
+};
 
 
-
-// Number of Guesses Remaining: (# of guesses remaining for the user).
-// Letters Already Guessed: (Letters the user has guessed, displayed like L Z Y H).
-// After the user wins/loses the game should automatically choose another word and make the user play it.
-
-// Play a sound or song when the user guesses their word correctly, like in our demo.
-// Write some stylish CSS rules to make a design that fits your game's theme.
-
-// HARD MODE: Organize your game code as an object, except for the key events to get the letter guessed. This will be a challenge if you haven't coded with JavaScript before, but we encourage anyone already familiar with the language to try this out.
-// Save your whole game and its properties in an object.
-// Save any of your game's functions as methods, and call them underneath your object declaration using event listeners.
-// Don't forget to place your global variables and functions above your object.
+document.onkeyup = function (event) {
+    if (hasFinished) {
+        resetGame();
+        hasFinished = false;
+    }
+    else {
+        if (event.keyCode >= 65 && event.keyCode <= 90) {
+            makeGuess(event.key.toLowerCase());
+        }
+    };
 
 
-// Remember: global variables, then objects, then calls.
+    function makeGuess(letter) {
+        if (remainingGuesses > 0) {
+            if (!gameStarted) {
+                gameStarted = true;
+            }
+            if (guessedLetters.indexOf(letter) === -1) {
+                guessedLetters.push(letter);
+                evaluateGuess(letter);
+            }
+        }
 
+        updateDisplay();
+        checkWin();
+    };
 
-// Definitely talk with a TA or your instructor if you get tripped up during this challenge.
+   
 
+    function evaluateGuess(letter) {
+        var positions = [];
+        for (var i = 0; i < wordBank[currentWordIndex].length; i++) {
+            if (wordBank[currentWordIndex][i] === letter) {
+                positions.push(i);
+            }
+        }
+        if (positions.length <= 0) {
+            remainingGuesses--;
+        } else {
+            for (var i = 0; i < positions.length; i++) {
+                guessingWord[positions[i]] = letter;
+            }
+        }
+    };
 
-var wordBank = ["mercury" , "venus" , "earth" , "mars" , "jupiter" , "saturn" , 
-"uranus" , "neptune" , "pluto" , "sun" , "moon" , "eclipse" , "luna" , "galaxy" , 
-"meteor" , "satellite" , "cosmos" , "rover" , "spaceship" , "comets" , "asteroids" , 
-"core" , "crust" , "mantle" , "wormhole" , "atmosphere" , "universe" , "photons" ];
-
-var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h",
-"i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
-"t", "u", "v", "w", "x", "y", "z"];
+    function checkWin() {
+        if (guessingWord.indexOf("_") === -1) {
+            document.getElementById("youwin-image").style.cssText = "display: block";
+            document.getElementById("pressKeyTryAgain").style.cssText = "display: block";
+            wins++;
+            hasFinished = true;
+        }
+    };
+}
