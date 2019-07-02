@@ -1,9 +1,12 @@
 var wordBank = ["mercury", "venus", "earth", "mars", "jupiter", "saturn",
     "uranus", "neptune", "pluto", "sun", "moon", "eclipse", "luna", "galaxy",
     "meteor", "satellite", "cosmos", "rover", "spaceship", "comets", "asteroid",
-    "core", "crust", "mantle", "wormhole", "atmosphere", "universe", "rocketship", "planet"];
+    "core", "crust", "mantle", "wormhole", "atmosphere", "universe", "rocketship",
+    "planet", "hydrogen", "heliumn", "gravity", "solar", "stars", "rings", "gas",
+    "light", "orbit", "velocity", "oxygen", "aliens", "ufo", "milkyway", "nasa",
+    "spaceshuttle", "telescope", "bloodmoon", "fullmoon", "fusion", "photons", "magma"];
 
-const maxTries = 8;
+const maxTries = 12;
 
 var guessedletters = [];
 var currentWord;
@@ -18,10 +21,10 @@ function resetGame() {
     remainingGuesses = maxTries;
     gameStarted = false;
 
-    currentWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-    console.log("Reseting Game");
     console.log(currentWord);
 
+    currentWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+    console.log("Reseting Game");
 
     guessedletters = [];
     guessingWord = [];
@@ -35,7 +38,7 @@ function resetGame() {
 
 function updateDisplay() {
     document.getElementById("totalWins").innerText = wins;
-    document.getElementById("currentWord").innerText =" ";
+    document.getElementById("currentWord").innerText = " ";
     for (var i = 0; i < guessingWord.length; i++) {
         document.getElementById("currentWord").append(guessingWord[i]);
     }
@@ -76,7 +79,7 @@ document.onkeyup = function (event) {
         checkWin();
     };
 
-   
+
 
     function evaluateGuess(letter) {
         var positions = [];
@@ -85,11 +88,11 @@ document.onkeyup = function (event) {
                 positions.push(i);
             }
         }
-        
+
         if (positions.length <= 0) {
             remainingGuesses--;
         } else {
-            
+
             for (var i = 0; i < positions.length; i++) {
                 guessingWord[positions[i]] = letter;
             }
