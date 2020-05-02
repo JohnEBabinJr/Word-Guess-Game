@@ -7,7 +7,7 @@ Project Repository: https://github.com/JohnEBabinJr/Word-Guess-Game
 
 Site: https://johnebabinjr.github.io/Word-Guess-Game/
 
-![Image](https://raw.githubusercontent.com/JohnEBabinJr/Word-Guess-Game/assets/images/outer.png)
+![Image](https://github.com/JohnEBabinJr/Word-Guess-Game/blob/master/assets/images/outer.png?raw=true)
 
 This app is a simple hangman style word guess game that was developed for a space summer camp. The main goal of the game is to allow kids to guess words based off of topics they learned throughout the camp!
 
