@@ -17,3 +17,5 @@ It was created using simple HTML and CSS, combined with javascript and Jquery. T
 
 
 -John Babin: https://github.com/JohnEBabinJr
+
+Email: johnebabinjr@gmail.com
