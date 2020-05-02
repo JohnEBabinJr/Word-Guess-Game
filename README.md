@@ -1,5 +1,5 @@
 # Word-Guess-Game
-UC Davis Web Development Bootcamp June 2019 (Part-Time) /br
+UC Davis Web Development Bootcamp June 2019 (Part-Time)
 Instructor: Josh McKenny
 
 
