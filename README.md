@@ -1,6 +1,11 @@
 # Word-Guess-Game
 UC Davis Web Development Bootcamp June 2019 (Part-Time)
+
 Instructor: Josh McKenny
+
+Project Repository: https://github.com/JohnEBabinJr/Word-Guess-Game
+
+Site: https://johnebabinjr.github.io/Word-Guess-Game/
 
 
 This app is a simple hangman style word guess game that was developed for a space summer camp. It was created using simple HTML and CSS, combined with javascript and Jquery. 
